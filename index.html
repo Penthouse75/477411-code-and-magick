@@ -174,7 +174,83 @@
 </template>
 
 <script>
-  var fireballSize = 100;
+  /**
+   * Размер фаербола в пикселях
+   */
+  var FIREBALL_SIZE = 22;
+
+  /**
+   * Скорость мага
+   */
+  var WIZARD_SPEED = 3;
+
+  /**
+   * Ширина мага
+   */
+  var WIZARD_WIDTH = 70;
+
+  /**
+   * Размер фаербола в пикселях
+   */
+  var fireballSize = FIREBALL_SIZE;
+
+  /**
+   * Скорость мага
+   */
+  var wizardSpeed = WIZARD_SPEED;
+
+  /**
+   * Ширина мага
+   */
+  var wizardWidth = WIZARD_WIDTH;
+
+  /**
+   * Возвращает скорость фаербола в зависимости от направления ветра
+   * Если направление полета фаербола left - true, то фаербол летит по ветру и функция
+   * возвращает скорость равную 5, иначе он летит против ветра со скоростью 2
+   */
+  var getFireballSpeed = function (left) {
+    /**
+     * Скорость по ветру
+     */
+    var SPEED_WIND = 5;
+    
+    /**
+     * Скорость против ветра
+     */
+    var SPEED_AGAINST_WIND = 2;
+    
+    if (left) {
+      return SPEED_WIND;
+    }
+
+    return SPEED_AGAINST_WIND;
+  };
+
+  /**
+   * Возвращает пропорциональную высоту мага.
+   * Высота мага = 1.337 * ширина мага
+   */
+  function getWizardHeight (wizardWidth) {
+    return 1.337 * wizardWidth;
+  };
+
+  /**
+   * Возвращает центр по горизонтали, для позиции фигурки. Функции передается
+   * ширина игровой области.
+   * widthWindow ширина игровой области
+   */
+  function getWizardX (widthWindow) {
+    return widthWindow / 2;
+  };
+
+  /**
+   * Задает положение фигурки мага по вертикали (2/3 игрового поля от земли)
+   * heightWindow высота игровой области
+   */
+  function getWizardY (heightWindow) {
+    return 2 / 3 * heightWindow;
+  };
 </script>
 <script src="./js/game.js"></script>
 
