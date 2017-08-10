@@ -174,52 +174,19 @@
 </template>
 
 <script>
-  /**
-   * Размер фаербола в пикселях
-   */
-  var FIREBALL_SIZE = 22;
+  var fireballSize = 22;
+  var wizardSpeed = 3;
+  var wizardWidth = 70;
 
   /**
-   * Скорость мага
-   */
-  var WIZARD_SPEED = 3;
-
-  /**
-   * Ширина мага
-   */
-  var WIZARD_WIDTH = 70;
-
-  /**
-   * Размер фаербола в пикселях
-   */
-  var fireballSize = FIREBALL_SIZE;
-
-  /**
-   * Скорость мага
-   */
-  var wizardSpeed = WIZARD_SPEED;
-
-  /**
-   * Ширина мага
-   */
-  var wizardWidth = WIZARD_WIDTH;
-
-  /**
-   * Возвращает скорость фаербола в зависимости от направления ветра
-   * Если направление полета фаербола left - true, то фаербол летит по ветру и функция
-   * возвращает скорость равную 5, иначе он летит против ветра со скоростью 2
+   * Return speed fireball, depending direction wind
+   * If direction fireball (argument) left = true, (fireball fly downwind) and function return speed 5,
+   * else fireball fly against wind return speed 2
    */
   var getFireballSpeed = function (left) {
-    /**
-     * Скорость по ветру
-     */
     var SPEED_WIND = 5;
-    
-    /**
-     * Скорость против ветра
-     */
     var SPEED_AGAINST_WIND = 2;
-    
+
     if (left) {
       return SPEED_WIND;
     }
@@ -228,25 +195,24 @@
   };
 
   /**
-   * Возвращает пропорциональную высоту мага.
-   * Высота мага = 1.337 * ширина мага
+   * Return height wizard.
+   * Height wizard = 1.337 * width wizard
    */
   function getWizardHeight (wizardWidth) {
     return 1.337 * wizardWidth;
   };
 
   /**
-   * Возвращает центр по горизонтали, для позиции фигурки. Функции передается
-   * ширина игровой области.
-   * widthWindow ширина игровой области
+   * Return horizontal wizard position.
+   * Horizontal winzard position = center of horizontal.
    */
   function getWizardX (widthWindow) {
     return widthWindow / 2;
   };
 
   /**
-   * Задает положение фигурки мага по вертикали (2/3 игрового поля от земли)
-   * heightWindow высота игровой области
+   * Return vertical wizard position.
+   * heightWindow = 2/3 * heightplayarea
    */
   function getWizardY (heightWindow) {
     return 2 / 3 * heightWindow;
