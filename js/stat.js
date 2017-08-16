@@ -1,40 +1,54 @@
-// stats.js
 'use strict';
 
 window.renderStatistics = function (ctx, names, times) {
-/*   ctx.fillStyle = 'rgba(256, 256, 256, 1.0)';
-  ctx.strokeRect(100, 10, 420, 270);
-  ctx.fillRect(100, 10, 420, 270);
+  /*
+   * Draw white cloud with shadow and text
+   */
+  var drawCloud = function (x, y, width, heigth) {
+    ctx.strokeRect(x, y, width, heigth);
+    ctx.fillRect(x, y, width, heigth);
+  };
+
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+  drawCloud(110, 20, 430, 280);
+
+  ctx.fillStyle = 'rgba(256, 256, 256, 1.0)';
+  drawCloud(100, 10, 420, 270);
 
   ctx.fillStyle = '#000';
-  ctx.font = '16px PT Mono'; */
+  ctx.font = '16px PT Mono';
+  ctx.fillText('Ура вы победили!', 120, 30);
+  ctx.fillText('Список результатов:', 120, 50);
 
-      var drawCloud = function (x, y, width, heigth) {
-        var offset = 10;
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + offset, y + heigth / 2);
-        ctx.lineTo(x, y + heigth);
-        ctx.lineTo(x + width / 2, y + heigth - offset);
-        ctx.lineTo(x + width, y + heigth);
-        ctx.lineTo(x + width - offset, y + heigth / 2);
-        ctx.lineTo(x + width, y);
-        ctx.lineTo(x + width / 2, y + offset);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        ctx.closePath();
-        ctx.fill();
-      };
+  /*
+   * Calculate scale
+   */
+  var max = -1;
 
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-      drawCloud(190, 40, 320, 100);
+  for (var i = 0; i < times.length; i++) {
+    var time = times[i];
+    if (time > max) {
+      max = time;
+    }
+  }
 
-      ctx.fillStyle = 'rgba(256, 256, 256, 1.0)';
-      drawCloud(180, 30, 320, 100);
+  var histogramWidth = 150;
+  var step = histogramWidth / max;
 
-      ctx.fillStyle = '#000';
-      ctx.font = '16px PT Mono';
-/*
+  /*
+   * Show histogramm
+   */
+  ctx.textBaseline = 'top';
+  for (var i = 0; i < times.length; i++) {
+    ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random() + ')';
+    if (names[i] == 'Вы') {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    }
 
-  ctx.fillText('Ура вы победили!', 120, 40); */
+    ctx.fillRect(140 + 90 * i, 90 + histogramWidth - times[i] * step, 40, times[i] * step);
+
+    ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+    ctx.fillText(names[i], 140 + 90 * i, 250)
+    ctx.fillText(parseInt(times[i], 10), 140 + 90 * i, 70 + histogramWidth - times[i] * step)
+  }
 };
