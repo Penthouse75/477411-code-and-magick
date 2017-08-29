@@ -1,5 +1,8 @@
 'use strict';
 
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
 /*
  * Open/Close Setup dialog
  */
@@ -7,18 +10,54 @@ var setup = document.querySelector('.setup');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = document.querySelector('.setup-close');
 
-setupOpen.addEventListener('click', function() {
-  setup.classList.remove('hidden');
+/*
+ * Tuning main wizard
+ */
+var wizardMainCoat = document.querySelector('.wizard-coat');
 
-  document.addEventListener('keydown', function() {
-    if (evt.keyCode === 27) {
-      setup.classList.add('hidden');
-    }
-  });
+wizardMainCoat.addEventListener('click', function() {
+  var wizardMain = setup.querySelector('.wizard');
+  wizardMain.querySelector('.wizard-coat').style.fill = generateWizardCoatColor();
+});
+
+/*
+ * Event handler
+ */
+var onPopupEscPress = function(evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function() {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function() {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+  wizardMainCoat.removeEventListener('click');
+};
+
+setupOpen.addEventListener('click', function() {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function(evt){
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
 });
 
 setupClose.addEventListener('click', function() {
-  setup.classList.add('hidden');
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
 });
 
 /*
