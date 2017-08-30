@@ -39,16 +39,16 @@ window.renderStatistics = function (ctx, names, times) {
    * Show histogramm
    */
   ctx.textBaseline = 'top';
-  for (var i = 0; i < times.length; i++) {
+  for (i = 0; i < times.length; i++) {
     ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random() + ')';
-    if (names[i] == 'Вы') {
+    if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     }
 
     ctx.fillRect(140 + 90 * i, 90 + histogramWidth - times[i] * step, 40, times[i] * step);
 
     ctx.fillStyle = 'rgba(0, 0, 0, 1)';
-    ctx.fillText(names[i], 140 + 90 * i, 250)
-    ctx.fillText(parseInt(times[i], 10), 140 + 90 * i, 70 + histogramWidth - times[i] * step)
+    ctx.fillText(names[i], 140 + 90 * i, 250);
+    ctx.fillText(parseInt(times[i], 10), 140 + 90 * i, 70 + histogramWidth - times[i] * step);
   }
 };
